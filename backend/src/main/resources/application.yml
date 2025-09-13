@@ -41,4 +41,6 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
-    operationsSorter: method
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true

@@ -5,6 +5,9 @@ import com.locme.auth.User;
 import com.locme.common.ApiResponse;
 import com.locme.common.exceptions.ResourceNotFoundException;
 import com.locme.voiture.dto.VoitureDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/voitures")
 @CrossOrigin(origins = "*")
+@Tag(name = "Voitures", description = "API de gestion des voitures")
 public class VoitureController {
 
     @Autowired
@@ -34,12 +38,13 @@ public class VoitureController {
     }
 
     @GetMapping("/disponibles")
+    @Operation(summary = "Voitures disponibles", description = "Récupérer la liste des voitures disponibles avec filtres optionnels")
     public ResponseEntity<ApiResponse<List<VoitureDto>>> getAvailableVoitures(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDebut,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFin,
-            @RequestParam(required = false) String marque,
-            @RequestParam(required = false) BigDecimal prixMin,
-            @RequestParam(required = false) BigDecimal prixMax) {
+            @Parameter(description = "Date de début de location") @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDebut,
+            @Parameter(description = "Date de fin de location") @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFin,
+            @Parameter(description = "Marque de la voiture") @RequestParam(required = false) String marque,
+            @Parameter(description = "Prix minimum par jour") @RequestParam(required = false) BigDecimal prixMin,
+            @Parameter(description = "Prix maximum par jour") @RequestParam(required = false) BigDecimal prixMax) {
         
         List<VoitureDto> voitures;
         
