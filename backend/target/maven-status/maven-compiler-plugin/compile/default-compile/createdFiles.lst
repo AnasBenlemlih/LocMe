@@ -1,0 +1,10 @@
+com\locme\auth\User.class
+com\locme\auth\Role.class
+com\locme\common\ApiResponse.class
+com\locme\LocmeApplication.class
+com\locme\auth\UserRepository.class
+com\locme\auth\AuthController.class
+com\locme\auth\AuthService.class
+com\locme\auth\dto\RegisterRequest.class
+com\locme\auth\dto\LoginRequest.class
+com\locme\auth\dto\AuthResponse.class

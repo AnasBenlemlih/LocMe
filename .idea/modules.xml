@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LocMe.iml" filepath="$PROJECT_DIR$/.idea/LocMe.iml" />
       <module fileurl="file://$PROJECT_DIR$/backend/carrental.iml" filepath="$PROJECT_DIR$/backend/carrental.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/locme.iml" filepath="$PROJECT_DIR$/backend/locme.iml" />
     </modules>
   </component>
 </project>
