@@ -19,7 +19,7 @@ spring:
   
   security:
     jwt:
-      secret: testSecretKey123456789012345678901234567890
+      secret: testSecretKey1234567
       expiration: 86400000
 
 server:
