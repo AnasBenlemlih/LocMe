@@ -19,7 +19,7 @@ spring:
   
   security:
     jwt:
-      secret: testSecretKey123456789012345678901234567890
+      secret: T807GhPnTJoAQ/VHSoIPQ3mb5ZperAGqaj8Rskr/kyo=
       expiration: 86400000
 
 server:
