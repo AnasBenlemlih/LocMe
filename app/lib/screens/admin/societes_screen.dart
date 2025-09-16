@@ -16,3 +16,4 @@ class AdminSocietesScreen extends StatelessWidget {
   }
 }
 
+

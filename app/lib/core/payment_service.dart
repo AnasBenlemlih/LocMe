@@ -69,15 +69,15 @@ class PaymentService {
 
       // Confirm payment with Stripe
       final paymentResult = await Stripe.instance.confirmPayment(
-        paymentIntent['client_secret'],
-        PaymentMethodParams.card(
+        paymentIntentClientSecret: paymentIntent['client_secret'],
+        data: PaymentMethodParams.card(
           paymentMethodData: PaymentMethodData(
             billingDetails: const BillingDetails(),
           ),
         ),
       );
 
-      if (paymentResult.status == PaymentIntentStatus.Succeeded) {
+      if (paymentResult.status == PaymentIntentStatus.succeeded) {
         // Confirm payment on backend
         await confirmPayment(paymentIntentId: paymentIntent['id']);
         
@@ -104,7 +104,7 @@ class PaymentService {
   Future<List<PaymentMethod>> getPaymentMethods() async {
     try {
       final paymentMethods = await Stripe.instance.retrievePaymentMethods();
-      return paymentMethods.data;
+      return paymentMethods;
     } catch (e) {
       throw Exception('Failed to retrieve payment methods: ${e.toString()}');
     }
@@ -132,4 +132,5 @@ class PaymentService {
     }
   }
 }
+
 

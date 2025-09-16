@@ -8,3 +8,4 @@ UPDATE voitures SET image_url = '/api/images/voitures/peugeot-308.svg' WHERE mar
 UPDATE voitures SET image_url = '/api/images/voitures/renault-clio.svg' WHERE marque = 'Renault' AND modele = 'Clio';
 UPDATE voitures SET image_url = '/api/images/voitures/tesla-model3.svg' WHERE marque = 'Tesla' AND modele = 'Model 3';
 
+
