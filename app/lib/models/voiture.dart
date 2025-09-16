@@ -1,5 +1,6 @@
 import 'societe.dart';
 import 'user.dart';
+import '../core/api_client.dart';
 
 enum TypeCarburant {
   ESSENCE,
@@ -179,6 +180,12 @@ class Voiture {
   }
 
   String get fullName => '$marque $modele';
+  
+  String? get fullImageUrl {
+    if (imageUrl == null) return null;
+    if (imageUrl!.startsWith('http')) return imageUrl;
+    return '${ApiClient.imageBaseUrl}$imageUrl';
+  }
   
   String get carburantDisplayName {
     switch (carburant) {

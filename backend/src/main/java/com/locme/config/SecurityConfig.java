@@ -37,6 +37,7 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -66,6 +67,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/voitures/disponibles").permitAll()
                     .requestMatchers("/api/voitures").permitAll()
                     .requestMatchers("/api/voitures/{id}").permitAll()
+                    .requestMatchers("/api/images/**").permitAll()
                     .requestMatchers("/swagger-ui/**").permitAll()
                     .requestMatchers("/api-docs/**").permitAll()
                     .requestMatchers("/actuator/**").permitAll()

@@ -37,9 +37,9 @@ class VoitureCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: voiture.imageUrl != null
+                child: voiture.fullImageUrl != null
                     ? CachedNetworkImage(
-                        imageUrl: voiture.imageUrl!,
+                        imageUrl: voiture.fullImageUrl!,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Container(
                           color: theme.colorScheme.surfaceVariant,

@@ -108,116 +108,134 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildFilters(VoitureProvider voitureProvider) {
-    return Column(
-      children: [
-        // Carburant filter
-        Row(
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<TypeCarburant?>(
-                value: voitureProvider.selectedCarburant,
-                decoration: const InputDecoration(
-                  labelText: 'Carburant',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                ),
-                items: [
-                  const DropdownMenuItem(
-                    value: null,
-                    child: Text('Tous'),
-                  ),
-                  ...TypeCarburant.values.map((carburant) {
-                    return DropdownMenuItem(
-                      value: carburant,
-                      child: Text(_getCarburantDisplayName(carburant)),
-                    );
-                  }),
-                ],
-                onChanged: (value) {
-                  voitureProvider.filterByCarburant(value);
-                },
-              ),
+    final theme = Theme.of(context);
+    
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Filter chips for carburant
+          Text(
+            'Type de carburant',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w600,
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: DropdownButtonFormField<TypeTransmission?>(
-                value: voitureProvider.selectedTransmission,
-                decoration: const InputDecoration(
-                  labelText: 'Transmission',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                ),
-                items: [
-                  const DropdownMenuItem(
-                    value: null,
-                    child: Text('Tous'),
-                  ),
-                  ...TypeTransmission.values.map((transmission) {
-                    return DropdownMenuItem(
-                      value: transmission,
-                      child: Text(_getTransmissionDisplayName(transmission)),
-                    );
-                  }),
-                ],
-                onChanged: (value) {
-                  voitureProvider.filterByTransmission(value);
-                },
-              ),
-            ),
-          ],
-        ),
-        
-        const SizedBox(height: 12),
-        
-        // Price and places filters
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Prix max (€/jour)',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  final price = double.tryParse(value);
-                  voitureProvider.filterByMaxPrice(price);
-                },
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Places min',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  final places = int.tryParse(value);
-                  voitureProvider.filterByMinPlaces(places);
-                },
-              ),
-            ),
-          ],
-        ),
-        
-        const SizedBox(height: 12),
-        
-        // Clear filters button
-        SizedBox(
-          width: double.infinity,
-          child: OutlinedButton(
-            onPressed: () {
-              voitureProvider.clearFilters();
-              _searchController.clear();
-            },
-            child: const Text('Effacer les filtres'),
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              _FilterChip(
+                label: 'Tous',
+                isSelected: voitureProvider.selectedCarburant == null,
+                onTap: () => voitureProvider.filterByCarburant(null),
+              ),
+              ...TypeCarburant.values.map((carburant) {
+                return _FilterChip(
+                  label: _getCarburantDisplayName(carburant),
+                  isSelected: voitureProvider.selectedCarburant == carburant,
+                  onTap: () => voitureProvider.filterByCarburant(carburant),
+                );
+              }),
+            ],
+          ),
+          
+          const SizedBox(height: 16),
+          
+          // Filter chips for transmission
+          Text(
+            'Transmission',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              _FilterChip(
+                label: 'Tous',
+                isSelected: voitureProvider.selectedTransmission == null,
+                onTap: () => voitureProvider.filterByTransmission(null),
+              ),
+              ...TypeTransmission.values.map((transmission) {
+                return _FilterChip(
+                  label: _getTransmissionDisplayName(transmission),
+                  isSelected: voitureProvider.selectedTransmission == transmission,
+                  onTap: () => voitureProvider.filterByTransmission(transmission),
+                );
+              }),
+            ],
+          ),
+          
+          const SizedBox(height: 16),
+          
+          // Price range slider
+          Text(
+            'Prix maximum par jour',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '0€',
+                  style: theme.textTheme.bodySmall,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Slider(
+                  value: voitureProvider.maxPrice ?? 200.0,
+                  min: 0,
+                  max: 200,
+                  divisions: 20,
+                  label: '${(voitureProvider.maxPrice ?? 200.0).toInt()}€',
+                  onChanged: (value) {
+                    voitureProvider.filterByMaxPrice(value);
+                  },
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '200€',
+                  style: theme.textTheme.bodySmall,
+                  textAlign: TextAlign.end,
+                ),
+              ),
+            ],
+          ),
+          
+          const SizedBox(height: 16),
+          
+          // Clear filters button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                voitureProvider.clearFilters();
+                _searchController.clear();
+              },
+              icon: const Icon(Icons.clear_all),
+              label: const Text('Effacer tous les filtres'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.errorContainer,
+                foregroundColor: theme.colorScheme.onErrorContainer,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -347,5 +365,51 @@ class _SearchScreenState extends State<SearchScreen> {
       case TypeTransmission.SEMI_AUTOMATIQUE:
         return 'Semi-automatique';
     }
+  }
+}
+
+class _FilterChip extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FilterChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected 
+              ? theme.colorScheme.primary 
+              : theme.colorScheme.surfaceVariant,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected 
+                ? theme.colorScheme.primary 
+                : theme.colorScheme.outline,
+            width: 1,
+          ),
+        ),
+        child: Text(
+          label,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: isSelected 
+                ? theme.colorScheme.onPrimary 
+                : theme.colorScheme.onSurfaceVariant,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+          ),
+        ),
+      ),
+    );
   }
 }

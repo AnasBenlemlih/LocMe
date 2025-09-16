@@ -117,7 +117,7 @@ public class VoitureService {
     }
 
     private VoitureDto convertToDto(Voiture voiture) {
-        return new VoitureDto(
+        VoitureDto dto = new VoitureDto(
                 voiture.getId(),
                 voiture.getMarque(),
                 voiture.getModele(),
@@ -126,5 +126,16 @@ public class VoitureService {
                 voiture.getSociete().getId(),
                 voiture.getSociete().getNom()
         );
+        
+        // Mapper tous les autres champs
+        dto.setAnnee(voiture.getAnnee());
+        dto.setKilometrage(voiture.getKilometrage());
+        dto.setCarburant(voiture.getCarburant());
+        dto.setTransmission(voiture.getTransmission());
+        dto.setNombrePlaces(voiture.getNombrePlaces());
+        dto.setImageUrl(voiture.getImageUrl());
+        dto.setDescription(voiture.getDescription());
+        
+        return dto;
     }
 }
