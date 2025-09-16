@@ -1,0 +1,53 @@
+name: locme
+description: A car rental platform Flutter application
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # HTTP & API
+  http: ^1.1.0
+  dio: ^5.4.0
+  
+  # Storage
+  flutter_secure_storage: ^9.0.0
+  shared_preferences: ^2.2.2
+  
+  # Navigation
+  go_router: ^12.1.3
+  
+  # Payments
+  flutter_stripe: ^10.1.1
+  
+  # UI & Utils
+  cupertino_icons: ^1.0.6
+  cached_network_image: ^3.3.0
+  image_picker: ^1.0.4
+  intl: ^0.19.0
+  
+  # Icons
+  font_awesome_flutter: ^10.6.0
+  
+  # Responsive
+  flutter_screenutil: ^5.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+  
