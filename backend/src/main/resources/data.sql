@@ -1,16 +1,16 @@
 -- Données de test pour l'application LocMe
 
 -- Insertion d'utilisateurs de test
-INSERT INTO users (nom, email, mot_de_passe, role, telephone, adresse, created_at, updated_at) VALUES
-('Admin LocMe', 'admin@locme.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ADMIN', '0123456789', '123 Rue Admin, Paris', NOW(), NOW()),
-('Client Test', 'client@test.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'CLIENT', '0987654321', '456 Avenue Client, Lyon', NOW(), NOW()),
-('Société AutoRent', 'societe@autorent.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'SOCIETE', '0555666777', '789 Boulevard Société, Marseille', NOW(), NOW()),
-('Société CarFast', 'contact@carfast.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'SOCIETE', '0444555666', '321 Rue CarFast, Toulouse', NOW(), NOW());
+INSERT INTO users (id, nom, email, mot_de_passe, role, telephone, adresse, created_at, updated_at) VALUES
+(1, 'Admin LocMe', 'admin@locme.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ADMIN', '0123456789', '123 Rue Admin, Paris', NOW(), NOW()),
+(2, 'Client Test', 'client@test.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'CLIENT', '0987654321', '456 Avenue Client, Lyon', NOW(), NOW()),
+(3, 'Société AutoRent', 'societe@autorent.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'SOCIETE', '0555666777', '789 Boulevard Société, Marseille', NOW(), NOW()),
+(8, 'Société CarFast', 'contact@carfast.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'SOCIETE', '0444555666', '321 Rue CarFast, Toulouse', NOW(), NOW());
 
 -- Insertion de sociétés de test
-INSERT INTO societes (nom, adresse, email, telephone, description, user_id, created_at, updated_at) VALUES
-('AutoRent Paris', '123 Avenue des Champs-Élysées, 75008 Paris', 'contact@autorent.com', '0145678901', 'Location de voitures premium à Paris', 3, NOW(), NOW()),
-('CarFast Toulouse', '456 Rue de la République, 31000 Toulouse', 'contact@carfast.com', '0561234567', 'Location de voitures rapides et fiables', 4, NOW(), NOW());
+INSERT INTO societes (id, nom, adresse, email, telephone, description, user_id, created_at, updated_at) VALUES
+(1, 'AutoRent Paris', '123 Avenue des Champs-Élysées, 75008 Paris', 'contact@autorent.com', '0145678901', 'Location de voitures premium à Paris', 3, NOW(), NOW()),
+(2, 'CarFast Toulouse', '456 Rue de la République, 31000 Toulouse', 'contact@carfast.com', '0561234567', 'Location de voitures rapides et fiables', 8, NOW(), NOW());
 
 -- Insertion de voitures de test avec images locales
 INSERT INTO voitures (marque, modele, prix_par_jour, disponible, annee, kilometrage, carburant, transmission, nombre_places, image_url, description, societe_id, created_at, updated_at) VALUES

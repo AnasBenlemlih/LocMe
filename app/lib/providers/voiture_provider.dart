@@ -216,6 +216,76 @@ class VoitureProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Load voitures for Société
+  Future<void> loadVoituresForSociete(int societeId) async {
+    _setLoading(true);
+    _clearError();
+    
+    try {
+      final response = await _apiClient.get('/voitures/societe/$societeId');
+      if (response.statusCode == 200) {
+        final responseData = response.data;
+        
+        // Check if the response has the expected structure
+        if (responseData['success'] == true && responseData['data'] != null) {
+          final List<dynamic> data = responseData['data'];
+          _voitures = data.map((json) => Voiture.fromJson(json)).toList();
+          _applyFilters();
+        } else {
+          _setError(responseData['message'] ?? 'Failed to load voitures');
+        }
+      } else {
+        _setError('Failed to load voitures');
+      }
+    } catch (e) {
+      _setError('Failed to load voitures: ${e.toString()}');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Toggle voiture availability
+  Future<bool> toggleVoitureAvailability(int voitureId, bool available) async {
+    _setLoading(true);
+    _clearError();
+    
+    try {
+      final response = await _apiClient.updateVoiture(voitureId, {'disponible': available});
+      if (response.statusCode == 200) {
+        // Update local voiture
+        final index = _voitures.indexWhere((v) => v.id == voitureId);
+        if (index != -1) {
+          _voitures[index] = _voitures[index].copyWith(disponible: available);
+          _applyFilters();
+        }
+        return true;
+      } else {
+        _setError('Failed to update voiture availability');
+        return false;
+      }
+    } catch (e) {
+      _setError('Failed to update voiture availability: ${e.toString()}');
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Get statistics for Société
+  Map<String, int> getSocieteStats() {
+    return {
+      'total': _voitures.length,
+      'available': _voitures.where((v) => v.disponible).length,
+      'unavailable': _voitures.where((v) => !v.disponible).length,
+    };
+  }
+
+  // Get available voitures count
+  int get availableCount => _voitures.where((v) => v.disponible).length;
+
+  // Get unavailable voitures count
+  int get unavailableCount => _voitures.where((v) => !v.disponible).length;
+
   // Clear error
   void clearError() {
     _clearError();

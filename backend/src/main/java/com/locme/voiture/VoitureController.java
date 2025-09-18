@@ -65,7 +65,21 @@ public class VoitureController {
             VoitureDto voiture = voitureService.getVoitureById(id);
             return ResponseEntity.ok(ApiResponse.success(voiture));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/societe/{id}")
+    @PreAuthorize("hasRole('SOCIETE') or hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<List<VoitureDto>>> getVoituresBySociete(@PathVariable Long id) {
+        try {
+            User currentUser = authService.getCurrentUser();
+            // Pour les sociétés, on récupère toujours les voitures de l'utilisateur connecté
+            // L'ID dans l'URL est ignoré pour des raisons de sécurité
+            List<VoitureDto> voitures = voitureService.getVoituresBySociete(currentUser);
+            return ResponseEntity.ok(ApiResponse.success(voitures));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
     }
 
@@ -89,7 +103,7 @@ public class VoitureController {
             VoitureDto updatedVoiture = voitureService.updateVoiture(id, voitureDto, currentUser);
             return ResponseEntity.ok(ApiResponse.success("Voiture mise à jour avec succès", updatedVoiture));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
@@ -103,7 +117,7 @@ public class VoitureController {
             voitureService.deleteVoiture(id, currentUser);
             return ResponseEntity.ok(ApiResponse.success("Voiture supprimée avec succès", null));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error(e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }

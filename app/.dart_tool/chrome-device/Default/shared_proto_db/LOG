@@ -1,4 +1,7 @@
-2025/09/16-21:11:54.121 2bec Reusing MANIFEST C:\Users\PANTA\AppData\Local\Temp\flutter_tools.99dd5610\flutter_tools_chrome_device.6dd3255b\Default\shared_proto_db/MANIFEST-000001
-2025/09/16-21:11:54.122 2bec Recovering log #4
-2025/09/16-21:11:54.122 2bec Reusing old log C:\Users\PANTA\AppData\Local\Temp\flutter_tools.99dd5610\flutter_tools_chrome_device.6dd3255b\Default\shared_proto_db/000004.log 
-2025/09/16-21:11:54.122 2bec Delete type=0 #3
+2025/09/16-22:44:15.807 338 Reusing MANIFEST C:\Users\PANTA\AppData\Local\Temp\flutter_tools.88403284\flutter_tools_chrome_device.928f3f5c\Default\shared_proto_db/MANIFEST-000001
+2025/09/16-22:44:15.808 338 Recovering log #9
+2025/09/16-22:44:15.808 338 Reusing old log C:\Users\PANTA\AppData\Local\Temp\flutter_tools.88403284\flutter_tools_chrome_device.928f3f5c\Default\shared_proto_db/000009.log 
+2025/09/16-22:44:15.809 338 Delete type=0 #3
+2025/09/16-22:44:15.809 338 Delete type=0 #4
+2025/09/16-22:44:15.809 338 Delete type=0 #7
+2025/09/16-22:44:15.809 338 Delete type=2 #8

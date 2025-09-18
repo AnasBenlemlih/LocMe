@@ -15,6 +15,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findByUser(User user);
     List<Reservation> findByVoiture(Voiture voiture);
     List<Reservation> findByStatut(StatutReservation statut);
+    List<Reservation> findByDateDebutBetween(LocalDate startDate, LocalDate endDate);
     
     @Query("SELECT r FROM Reservation r WHERE r.voiture = :voiture AND r.statut IN ('CONFIRMEE', 'EN_COURS') " +
            "AND ((r.dateDebut <= :dateFin AND r.dateFin >= :dateDebut))")
@@ -24,4 +25,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     
     @Query("SELECT r FROM Reservation r WHERE r.user = :user AND r.statut = :statut")
     List<Reservation> findByUserAndStatut(@Param("user") User user, @Param("statut") StatutReservation statut);
+    
+    @Query("SELECT r FROM Reservation r WHERE r.voiture.societe.user = :societeUser")
+    List<Reservation> findByVoitureSocieteUser(@Param("societeUser") User societeUser);
 }

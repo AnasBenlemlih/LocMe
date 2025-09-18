@@ -11,4 +11,7 @@ public interface PaiementRepository extends JpaRepository<Paiement, Long> {
     Optional<Paiement> findByReservation(Reservation reservation);
     Optional<Paiement> findByStripePaymentIntentId(String stripePaymentIntentId);
     Optional<Paiement> findByTransactionId(String transactionId);
+    java.util.List<Paiement> findByStatut(StatutPaiement statut);
+    java.util.List<Paiement> findByMethodePaiement(MethodePaiement methodePaiement);
+    java.util.List<Paiement> findByMontantBetween(java.math.BigDecimal montantMin, java.math.BigDecimal montantMax);
 }

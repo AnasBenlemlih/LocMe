@@ -169,6 +169,143 @@ class ReservationProvider with ChangeNotifier {
         .fold(0.0, (sum, r) => sum + r.montant);
   }
 
+  // Load reservations for Société
+  Future<void> loadReservationsForSociete(int societeId) async {
+    _setLoading(true);
+    _clearError();
+    
+    try {
+      final response = await _apiClient.get('/reservations/societe/$societeId');
+      if (response.statusCode == 200) {
+        final responseData = response.data;
+        
+        // Check if the response has the expected structure
+        if (responseData['success'] == true && responseData['data'] != null) {
+          final List<dynamic> data = responseData['data'];
+          _reservations = data.map((json) => Reservation.fromJson(json)).toList();
+        } else {
+          _setError(responseData['message'] ?? 'Failed to load reservations');
+        }
+      } else {
+        _setError('Failed to load reservations');
+      }
+    } catch (e) {
+      _setError('Failed to load reservations: ${e.toString()}');
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Confirm reservation
+  Future<bool> confirmReservation(int reservationId) async {
+    _setLoading(true);
+    _clearError();
+    
+    try {
+      final response = await _apiClient.put('/reservations/$reservationId/confirm');
+      if (response.statusCode == 200) {
+        // Update local reservation
+        final index = _reservations.indexWhere((r) => r.id == reservationId);
+        if (index != -1) {
+          _reservations[index] = _reservations[index].copyWith(statut: StatutReservation.CONFIRMEE);
+          notifyListeners();
+        }
+        return true;
+      } else {
+        _setError('Failed to confirm reservation');
+        return false;
+      }
+    } catch (e) {
+      _setError('Failed to confirm reservation: ${e.toString()}');
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Cancel reservation
+  Future<bool> cancelReservation(int reservationId) async {
+    _setLoading(true);
+    _clearError();
+    
+    try {
+      final response = await _apiClient.put('/reservations/$reservationId/cancel');
+      if (response.statusCode == 200) {
+        // Update local reservation
+        final index = _reservations.indexWhere((r) => r.id == reservationId);
+        if (index != -1) {
+          _reservations[index] = _reservations[index].copyWith(statut: StatutReservation.ANNULEE);
+          notifyListeners();
+        }
+        return true;
+      } else {
+        _setError('Failed to cancel reservation');
+        return false;
+      }
+    } catch (e) {
+      _setError('Failed to cancel reservation: ${e.toString()}');
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Complete reservation
+  Future<bool> completeReservation(int reservationId) async {
+    _setLoading(true);
+    _clearError();
+    
+    try {
+      final response = await _apiClient.put('/reservations/$reservationId/complete');
+      if (response.statusCode == 200) {
+        // Update local reservation
+        final index = _reservations.indexWhere((r) => r.id == reservationId);
+        if (index != -1) {
+          _reservations[index] = _reservations[index].copyWith(statut: StatutReservation.TERMINEE);
+          notifyListeners();
+        }
+        return true;
+      } else {
+        _setError('Failed to complete reservation');
+        return false;
+      }
+    } catch (e) {
+      _setError('Failed to complete reservation: ${e.toString()}');
+      return false;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Filter reservations by status
+  List<Reservation> getFilteredReservations(StatutReservation? status) {
+    if (status == null) return _reservations;
+    return _reservations.where((r) => r.statut == status).toList();
+  }
+
+  // Search reservations by client name or car model
+  List<Reservation> searchReservations(String query) {
+    if (query.isEmpty) return _reservations;
+    
+    final lowercaseQuery = query.toLowerCase();
+    return _reservations.where((r) {
+      return r.user.nom.toLowerCase().contains(lowercaseQuery) ||
+             r.voiture.marque.toLowerCase().contains(lowercaseQuery) ||
+             r.voiture.modele.toLowerCase().contains(lowercaseQuery);
+    }).toList();
+  }
+
+  // Get statistics for Société
+  Map<String, int> getSocieteStats() {
+    return {
+      'total': _reservations.length,
+      'pending': _reservations.where((r) => r.statut == StatutReservation.EN_ATTENTE).length,
+      'confirmed': _reservations.where((r) => r.statut == StatutReservation.CONFIRMEE).length,
+      'completed': _reservations.where((r) => r.statut == StatutReservation.TERMINEE).length,
+      'cancelled': _reservations.where((r) => r.statut == StatutReservation.ANNULEE).length,
+    };
+  }
+
   // Clear error
   void clearError() {
     _clearError();

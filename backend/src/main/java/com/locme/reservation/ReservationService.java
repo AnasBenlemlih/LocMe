@@ -36,15 +36,21 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
+    public List<ReservationDto> getReservationsBySociete(User societeUser) {
+        return reservationRepository.findByVoitureSocieteUser(societeUser).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
     public ReservationDto getReservationById(Long id) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Réservation", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Réservation non trouvée"));
         return convertToDto(reservation);
     }
 
     public ReservationDto createReservation(ReservationDto reservationDto, User currentUser) {
         Voiture voiture = voitureRepository.findById(reservationDto.getVoitureId())
-                .orElseThrow(() -> new ResourceNotFoundException("Voiture", reservationDto.getVoitureId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Voiture non trouvée"));
 
         // Vérifier que la voiture est disponible
         if (!voiture.getDisponible()) {
@@ -61,7 +67,7 @@ public class ReservationService {
 
         // Vérifier que les dates sont valides
         if (reservationDto.getDateDebut().isBefore(LocalDate.now())) {
-            throw new BusinessException("La date de début ne peut pas être dans le passé");
+            throw new BusinessException("La date de début doit être dans le futur");
         }
 
         if (reservationDto.getDateFin().isBefore(reservationDto.getDateDebut())) {
@@ -89,7 +95,7 @@ public class ReservationService {
 
     public ReservationDto updateReservationStatus(Long id, StatutReservation newStatus, User currentUser) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Réservation", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Réservation non trouvée"));
 
         // Vérifier les permissions (propriétaire de la voiture ou admin)
         if (!reservation.getUser().getId().equals(currentUser.getId()) && 
@@ -105,7 +111,7 @@ public class ReservationService {
 
     public void deleteReservation(Long id, User currentUser) {
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Réservation", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Réservation non trouvée"));
 
         // Vérifier les permissions
         if (!reservation.getUser().getId().equals(currentUser.getId()) && 
