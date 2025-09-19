@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    # Les propriétés de la base de données seront définies dynamiquement par Testcontainers
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+  
+  security:
+    jwt:
+      secret: dGVzdC1zZWNyZXQta2V5LWZvci1pbnRlZ3JhdGlvbi10ZXN0cy1vbmx5LXZlcnktbG9uZy1rZXktZm9yLWhtYWMtc2hhMjU2
+      expiration: 86400000 # 24 heures
+
+server:
+  port: 0 # Random port for tests
+
+logging:
+  level:
+    com.locme: INFO
+    org.springframework.security: WARN
+    org.testcontainers: WARN
+    org.springframework.boot: WARN
+
+# Configuration Stripe pour les tests
+stripe:
+  secret-key: sk_test_fake_key_for_testing
+  publishable-key: pk_test_fake_key_for_testing

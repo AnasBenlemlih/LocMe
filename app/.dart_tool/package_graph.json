@@ -28,6 +28,13 @@
       ]
     },
     {
+      "name": "flutter_lints",
+      "version": "3.0.2",
+      "dependencies": [
+        "lints"
+      ]
+    },
+    {
       "name": "flutter_test",
       "version": "0.0.0",
       "dependencies": [
@@ -54,7 +61,7 @@
     },
     {
       "name": "font_awesome_flutter",
-      "version": "10.10.0",
+      "version": "10.9.1",
       "dependencies": [
         "flutter"
       ]
@@ -97,6 +104,17 @@
       "name": "cupertino_icons",
       "version": "1.0.8",
       "dependencies": []
+    },
+    {
+      "name": "flutter_stripe",
+      "version": "10.2.0",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "stripe_android",
+        "stripe_ios",
+        "stripe_platform_interface"
+      ]
     },
     {
       "name": "go_router",
@@ -178,6 +196,11 @@
         "sky_engine",
         "vector_math"
       ]
+    },
+    {
+      "name": "lints",
+      "version": "3.0.0",
+      "dependencies": []
     },
     {
       "name": "stream_channel",
@@ -324,7 +347,7 @@
     },
     {
       "name": "image_picker_android",
-      "version": "0.8.13+2",
+      "version": "0.8.13+1",
       "dependencies": [
         "flutter",
         "flutter_plugin_android_lifecycle",
@@ -370,6 +393,31 @@
       "dependencies": [
         "flutter",
         "flutter_cache_manager"
+      ]
+    },
+    {
+      "name": "stripe_platform_interface",
+      "version": "10.2.0",
+      "dependencies": [
+        "flutter",
+        "freezed_annotation",
+        "json_annotation",
+        "meta",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "stripe_ios",
+      "version": "10.2.0",
+      "dependencies": [
+        "flutter"
+      ]
+    },
+    {
+      "name": "stripe_android",
+      "version": "10.2.1",
+      "dependencies": [
+        "flutter"
       ]
     },
     {
@@ -515,7 +563,7 @@
     },
     {
       "name": "async",
-      "version": "2.13.0",
+      "version": "2.12.0",
       "dependencies": [
         "collection",
         "meta"
@@ -557,17 +605,6 @@
         "leak_tracker",
         "matcher",
         "meta"
-      ]
-    },
-    {
-      "name": "leak_tracker",
-      "version": "11.0.2",
-      "dependencies": [
-        "clock",
-        "collection",
-        "meta",
-        "path",
-        "vm_service"
       ]
     },
     {
@@ -706,6 +743,22 @@
       ]
     },
     {
+      "name": "json_annotation",
+      "version": "4.9.0",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "freezed_annotation",
+      "version": "2.4.4",
+      "dependencies": [
+        "collection",
+        "json_annotation",
+        "meta"
+      ]
+    },
+    {
       "name": "path_provider_windows",
       "version": "2.3.0",
       "dependencies": [
@@ -737,7 +790,7 @@
     },
     {
       "name": "win32",
-      "version": "5.14.0",
+      "version": "5.13.0",
       "dependencies": [
         "ffi"
       ]
@@ -762,11 +815,6 @@
       ]
     },
     {
-      "name": "vm_service",
-      "version": "15.0.2",
-      "dependencies": []
-    },
-    {
       "name": "fixnum",
       "version": "1.1.1",
       "dependencies": []
@@ -785,7 +833,7 @@
     },
     {
       "name": "sqflite_common",
-      "version": "2.5.6",
+      "version": "2.5.5",
       "dependencies": [
         "meta",
         "path",
@@ -816,7 +864,7 @@
     },
     {
       "name": "sqflite_android",
-      "version": "2.4.2+2",
+      "version": "2.4.1",
       "dependencies": [
         "flutter",
         "path",
@@ -855,72 +903,24 @@
     },
     {
       "name": "synchronized",
-      "version": "3.4.0",
+      "version": "3.3.1",
       "dependencies": []
     },
     {
-      "name": "flutter_stripe",
-      "version": "10.2.0",
+      "name": "leak_tracker",
+      "version": "11.0.2",
       "dependencies": [
-        "flutter",
-        "meta",
-        "stripe_android",
-        "stripe_ios",
-        "stripe_platform_interface"
-      ]
-    },
-    {
-      "name": "stripe_platform_interface",
-      "version": "10.2.0",
-      "dependencies": [
-        "flutter",
-        "freezed_annotation",
-        "json_annotation",
-        "meta",
-        "plugin_platform_interface"
-      ]
-    },
-    {
-      "name": "stripe_ios",
-      "version": "10.2.0",
-      "dependencies": [
-        "flutter"
-      ]
-    },
-    {
-      "name": "json_annotation",
-      "version": "4.9.0",
-      "dependencies": [
-        "meta"
-      ]
-    },
-    {
-      "name": "stripe_android",
-      "version": "10.2.1",
-      "dependencies": [
-        "flutter"
-      ]
-    },
-    {
-      "name": "flutter_lints",
-      "version": "3.0.2",
-      "dependencies": [
-        "lints"
-      ]
-    },
-    {
-      "name": "lints",
-      "version": "3.0.0",
-      "dependencies": []
-    },
-    {
-      "name": "freezed_annotation",
-      "version": "2.4.4",
-      "dependencies": [
+        "clock",
         "collection",
-        "json_annotation",
-        "meta"
+        "meta",
+        "path",
+        "vm_service"
       ]
+    },
+    {
+      "name": "vm_service",
+      "version": "14.3.1",
+      "dependencies": []
     }
   ],
   "configVersion": 1

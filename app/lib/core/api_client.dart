@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:locme/core/storage_service.dart';
 
 class ApiClient {
   static const String baseUrl = 'http://localhost:8080/api';
+  static const String imageBaseUrl = 'http://localhost:8080';
   static const bool useMockData = false; // Set to false when backend is running
   late Dio _dio;
 

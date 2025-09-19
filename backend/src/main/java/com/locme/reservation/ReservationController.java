@@ -42,13 +42,29 @@ public class ReservationController {
         }
     }
 
+    @GetMapping("/societe/{id}")
+    @PreAuthorize("hasRole('SOCIETE') or hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<List<ReservationDto>>> getReservationsBySociete(@PathVariable Long id) {
+        try {
+            User currentUser = authService.getCurrentUser();
+            // Vérifier que l'utilisateur peut accéder aux réservations de cette société
+            if (!currentUser.getId().equals(id) && !currentUser.getRole().name().equals("ADMIN")) {
+                return ResponseEntity.status(403).body(ApiResponse.error("Accès non autorisé"));
+            }
+            List<ReservationDto> reservations = reservationService.getReservationsBySociete(currentUser);
+            return ResponseEntity.ok(ApiResponse.success(reservations));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<ReservationDto>> getReservationById(@PathVariable Long id) {
         try {
             ReservationDto reservation = reservationService.getReservationById(id);
             return ResponseEntity.ok(ApiResponse.success(reservation));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error("Réservation non trouvée"));
         }
     }
 
@@ -74,7 +90,49 @@ public class ReservationController {
             ReservationDto updatedReservation = reservationService.updateReservationStatus(id, status, currentUser);
             return ResponseEntity.ok(ApiResponse.success("Statut de réservation mis à jour", updatedReservation));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error("Réservation non trouvée"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}/confirm")
+    @PreAuthorize("hasRole('SOCIETE') or hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<ReservationDto>> confirmReservation(@PathVariable Long id) {
+        try {
+            User currentUser = authService.getCurrentUser();
+            ReservationDto updatedReservation = reservationService.updateReservationStatus(id, StatutReservation.CONFIRMEE, currentUser);
+            return ResponseEntity.ok(ApiResponse.success("Réservation confirmée avec succès", updatedReservation));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(ApiResponse.error("Réservation non trouvée"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}/cancel")
+    @PreAuthorize("hasRole('SOCIETE') or hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<ReservationDto>> cancelReservation(@PathVariable Long id) {
+        try {
+            User currentUser = authService.getCurrentUser();
+            ReservationDto updatedReservation = reservationService.updateReservationStatus(id, StatutReservation.ANNULEE, currentUser);
+            return ResponseEntity.ok(ApiResponse.success("Réservation annulée avec succès", updatedReservation));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(ApiResponse.error("Réservation non trouvée"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}/complete")
+    @PreAuthorize("hasRole('SOCIETE') or hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<ReservationDto>> completeReservation(@PathVariable Long id) {
+        try {
+            User currentUser = authService.getCurrentUser();
+            ReservationDto updatedReservation = reservationService.updateReservationStatus(id, StatutReservation.TERMINEE, currentUser);
+            return ResponseEntity.ok(ApiResponse.success("Réservation marquée comme terminée", updatedReservation));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(404).body(ApiResponse.error("Réservation non trouvée"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
@@ -87,7 +145,7 @@ public class ReservationController {
             reservationService.deleteReservation(id, currentUser);
             return ResponseEntity.ok(ApiResponse.success("Réservation supprimée avec succès", null));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(404).body(ApiResponse.error("Réservation non trouvée"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }

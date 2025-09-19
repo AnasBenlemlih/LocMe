@@ -15,17 +15,21 @@ public interface VoitureRepository extends JpaRepository<Voiture, Long> {
     List<Voiture> findByDisponibleTrue();
     List<Voiture> findBySociete(Societe societe);
     List<Voiture> findBySocieteAndDisponibleTrue(Societe societe);
+    List<Voiture> findByMarque(String marque);
+    List<Voiture> findByPrixParJourBetween(BigDecimal prixMin, BigDecimal prixMax);
+    List<Voiture> findByCarburant(TypeCarburant carburant);
+    List<Voiture> findBySocieteUser(com.locme.auth.User user);
     
     @Query("SELECT v FROM Voiture v WHERE v.disponible = true AND v.id NOT IN " +
            "(SELECT r.voiture.id FROM Reservation r WHERE r.statut IN ('CONFIRMEE', 'EN_COURS') " +
            "AND ((r.dateDebut <= :dateFin AND r.dateFin >= :dateDebut)))")
-    List<Voiture> findAvailableCars(@Param("dateDebut") LocalDate dateDebut, @Param("dateFin") LocalDate dateFin);
+    List<Voiture> findAvailableVoituresByDate(@Param("dateDebut") LocalDate dateDebut, @Param("dateFin") LocalDate dateFin);
     
     @Query("SELECT v FROM Voiture v WHERE v.disponible = true AND " +
            "(:marque IS NULL OR LOWER(v.marque) LIKE LOWER(CONCAT('%', :marque, '%'))) AND " +
            "(:prixMin IS NULL OR v.prixParJour >= :prixMin) AND " +
            "(:prixMax IS NULL OR v.prixParJour <= :prixMax)")
-    List<Voiture> findAvailableCarsWithFilters(@Param("marque") String marque, 
+    List<Voiture> findAvailableVoituresWithFilters(@Param("marque") String marque, 
                                               @Param("prixMin") BigDecimal prixMin, 
                                               @Param("prixMax") BigDecimal prixMax);
 }

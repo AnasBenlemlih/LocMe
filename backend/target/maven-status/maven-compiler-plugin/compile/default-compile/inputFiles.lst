@@ -14,11 +14,18 @@ E:\LocMe\backend\src\main\java\com\locme\common\ApiResponse.java
 E:\LocMe\backend\src\main\java\com\locme\common\exceptions\BusinessException.java
 E:\LocMe\backend\src\main\java\com\locme\common\exceptions\ResourceNotFoundException.java
 E:\LocMe\backend\src\main\java\com\locme\common\GlobalExceptionHandler.java
+E:\LocMe\backend\src\main\java\com\locme\config\OpenApiConfig.java
 E:\LocMe\backend\src\main\java\com\locme\config\SecurityConfig.java
+E:\LocMe\backend\src\main\java\com\locme\favorite\Favorite.java
+E:\LocMe\backend\src\main\java\com\locme\favorite\FavoriteController.java
+E:\LocMe\backend\src\main\java\com\locme\favorite\FavoriteRepository.java
+E:\LocMe\backend\src\main\java\com\locme\favorite\FavoriteService.java
 E:\LocMe\backend\src\main\java\com\locme\LocmeApplication.java
 E:\LocMe\backend\src\main\java\com\locme\paiement\MethodePaiement.java
 E:\LocMe\backend\src\main\java\com\locme\paiement\Paiement.java
+E:\LocMe\backend\src\main\java\com\locme\paiement\PaiementController.java
 E:\LocMe\backend\src\main\java\com\locme\paiement\PaiementRepository.java
+E:\LocMe\backend\src\main\java\com\locme\paiement\PaiementService.java
 E:\LocMe\backend\src\main\java\com\locme\paiement\StatutPaiement.java
 E:\LocMe\backend\src\main\java\com\locme\reservation\dto\ReservationDto.java
 E:\LocMe\backend\src\main\java\com\locme\reservation\Reservation.java
@@ -29,6 +36,7 @@ E:\LocMe\backend\src\main\java\com\locme\reservation\StatutReservation.java
 E:\LocMe\backend\src\main\java\com\locme\societe\Societe.java
 E:\LocMe\backend\src\main\java\com\locme\societe\SocieteRepository.java
 E:\LocMe\backend\src\main\java\com\locme\voiture\dto\VoitureDto.java
+E:\LocMe\backend\src\main\java\com\locme\voiture\ImageController.java
 E:\LocMe\backend\src\main\java\com\locme\voiture\TypeCarburant.java
 E:\LocMe\backend\src\main\java\com\locme\voiture\TypeTransmission.java
 E:\LocMe\backend\src\main\java\com\locme\voiture\Voiture.java

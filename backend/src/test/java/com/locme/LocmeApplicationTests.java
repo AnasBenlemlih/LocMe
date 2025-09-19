@@ -2,13 +2,15 @@ package com.locme;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class LocmeApplicationTests {
 
-	@Test
-	void contextLoads() {
-		// Test que l'application Spring Boot démarre correctement
-	}
-
+    @Test
+    void contextLoads() {
+        // This test ensures that the Spring context loads successfully
+        // with all the test configurations
+    }
 }

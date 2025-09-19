@@ -35,26 +35,32 @@ public class VoitureService {
     }
 
     public List<VoitureDto> getAvailableVoituresByDate(LocalDate dateDebut, LocalDate dateFin) {
-        return voitureRepository.findAvailableCars(dateDebut, dateFin).stream()
+        return voitureRepository.findAvailableVoituresByDate(dateDebut, dateFin).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
     public List<VoitureDto> getAvailableVoituresWithFilters(String marque, BigDecimal prixMin, BigDecimal prixMax) {
-        return voitureRepository.findAvailableCarsWithFilters(marque, prixMin, prixMax).stream()
+        return voitureRepository.findAvailableVoituresWithFilters(marque, prixMin, prixMax).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
     public VoitureDto getVoitureById(Long id) {
         Voiture voiture = voitureRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Voiture", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Voiture non trouvée"));
         return convertToDto(voiture);
+    }
+
+    public List<VoitureDto> getVoituresBySociete(User societeUser) {
+        return voitureRepository.findBySocieteUser(societeUser).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public VoitureDto createVoiture(VoitureDto voitureDto, User currentUser) {
         Societe societe = societeRepository.findByUser(currentUser)
-                .orElseThrow(() -> new ResourceNotFoundException("Société non trouvée pour cet utilisateur"));
+                .orElseThrow(() -> new com.locme.common.exceptions.BusinessException("Société non trouvée pour cet utilisateur"));
 
         Voiture voiture = new Voiture();
         voiture.setMarque(voitureDto.getMarque());
@@ -76,14 +82,14 @@ public class VoitureService {
 
     public VoitureDto updateVoiture(Long id, VoitureDto voitureDto, User currentUser) {
         Voiture voiture = voitureRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Voiture", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Voiture non trouvée"));
 
         // Vérifier que l'utilisateur est propriétaire de la société
         Societe societe = societeRepository.findByUser(currentUser)
                 .orElseThrow(() -> new ResourceNotFoundException("Société non trouvée"));
         
         if (!voiture.getSociete().getId().equals(societe.getId())) {
-            throw new ResourceNotFoundException("Vous n'êtes pas autorisé à modifier cette voiture");
+            throw new com.locme.common.exceptions.BusinessException("Vous n'êtes pas autorisé à modifier cette voiture");
         }
 
         voiture.setMarque(voitureDto.getMarque());
@@ -104,20 +110,20 @@ public class VoitureService {
 
     public void deleteVoiture(Long id, User currentUser) {
         Voiture voiture = voitureRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Voiture", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Voiture non trouvée"));
 
         Societe societe = societeRepository.findByUser(currentUser)
                 .orElseThrow(() -> new ResourceNotFoundException("Société non trouvée"));
         
         if (!voiture.getSociete().getId().equals(societe.getId())) {
-            throw new ResourceNotFoundException("Vous n'êtes pas autorisé à supprimer cette voiture");
+            throw new com.locme.common.exceptions.BusinessException("Vous n'êtes pas autorisé à supprimer cette voiture");
         }
 
         voitureRepository.delete(voiture);
     }
 
     private VoitureDto convertToDto(Voiture voiture) {
-        return new VoitureDto(
+        VoitureDto dto = new VoitureDto(
                 voiture.getId(),
                 voiture.getMarque(),
                 voiture.getModele(),
@@ -126,5 +132,16 @@ public class VoitureService {
                 voiture.getSociete().getId(),
                 voiture.getSociete().getNom()
         );
+        
+        // Mapper tous les autres champs
+        dto.setAnnee(voiture.getAnnee());
+        dto.setKilometrage(voiture.getKilometrage());
+        dto.setCarburant(voiture.getCarburant());
+        dto.setTransmission(voiture.getTransmission());
+        dto.setNombrePlaces(voiture.getNombrePlaces());
+        dto.setImageUrl(voiture.getImageUrl());
+        dto.setDescription(voiture.getDescription());
+        
+        return dto;
     }
 }

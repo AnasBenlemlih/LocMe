@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Générateur d'images de voitures</title>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600" style="border: 1px solid #ccc;"></canvas>
+    <br>
+    <button onclick="generateImages()">Générer toutes les images</button>
+    
+    <script>
+        const cars = [
+            { brand: "Toyota", model: "Corolla", filename: "toyota-corolla.jpg" },
+            { brand: "BMW", model: "X3", filename: "bmw-x3.jpg" },
+            { brand: "Mercedes", model: "Classe A", filename: "mercedes-classe-a.jpg" },
+            { brand: "Audi", model: "A4", filename: "audi-a4.jpg" },
+            { brand: "Volkswagen", model: "Golf", filename: "volkswagen-golf.jpg" },
+            { brand: "Peugeot", model: "308", filename: "peugeot-308.jpg" },
+            { brand: "Renault", model: "Clio", filename: "renault-clio.jpg" },
+            { brand: "Tesla", model: "Model 3", filename: "tesla-model3.jpg" },
+            { brand: "Default", model: "Car", filename: "default-car.jpg" }
+        ];
+        
+        function drawCar(canvas, brand, model) {
+            const ctx = canvas.getContext('2d');
+            
+            // Effacer le canvas
+            ctx.clearRect(0, 0, 800, 600);
+            
+            // Fond dégradé
+            const gradient = ctx.createLinearGradient(0, 0, 0, 600);
+            gradient.addColorStop(0, '#E8F4FD');
+            gradient.addColorStop(1, '#B8D4F0');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 800, 600);
+            
+            // Corps de la voiture
+            ctx.fillStyle = '#2E86AB';
+            ctx.fillRect(150, 300, 500, 150);
+            
+            // Toit
+            ctx.fillStyle = '#1B4F72';
+            ctx.beginPath();
+            ctx.moveTo(200, 300);
+            ctx.lineTo(400, 200);
+            ctx.lineTo(600, 300);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Roues
+            ctx.fillStyle = '#2C3E50';
+            ctx.beginPath();
+            ctx.arc(200, 450, 30, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(600, 450, 30, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Phares
+            ctx.fillStyle = '#F39C12';
+            ctx.beginPath();
+            ctx.arc(160, 330, 15, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(640, 330, 15, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Vitres
+            ctx.fillStyle = '#85C1E9';
+            ctx.fillRect(220, 220, 360, 80);
+            
+            // Texte
+            ctx.fillStyle = '#1B4F72';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(brand, 400, 100);
+            
+            ctx.fillStyle = '#34495E';
+            ctx.font = '24px Arial';
+            ctx.fillText(model, 400, 140);
+        }
+        
+        function downloadImage(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.8);
+            link.click();
+        }
+        
+        function generateImages() {
+            cars.forEach((car, index) => {
+                setTimeout(() => {
+                    const canvas = document.getElementById('canvas');
+                    drawCar(canvas, car.brand, car.model);
+                    downloadImage(canvas, car.filename);
+                }, index * 500);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+

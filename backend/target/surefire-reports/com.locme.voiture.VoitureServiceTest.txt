@@ -1,0 +1,60 @@
+-------------------------------------------------------------------------------
+Test set: com.locme.voiture.VoitureServiceTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 0.180 s <<< FAILURE! -- in com.locme.voiture.VoitureServiceTest
+com.locme.voiture.VoitureServiceTest.testDeleteVoiture -- Time elapsed: 0.094 s <<< ERROR!
+com.locme.common.exceptions.ResourceNotFoundException: Société non trouvée
+	at com.locme.voiture.VoitureService.lambda$deleteVoiture$5(VoitureService.java:116)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.locme.voiture.VoitureService.deleteVoiture(VoitureService.java:116)
+	at com.locme.voiture.VoitureServiceTest.testDeleteVoiture(VoitureServiceTest.java:312)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.locme.voiture.VoitureServiceTest.testDeleteVoitureUnauthorized -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <com.locme.common.exceptions.BusinessException> but was: <com.locme.common.exceptions.ResourceNotFoundException>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.locme.voiture.VoitureServiceTest.testDeleteVoitureUnauthorized(VoitureServiceTest.java:346)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: com.locme.common.exceptions.ResourceNotFoundException: Société non trouvée
+	at com.locme.voiture.VoitureService.lambda$deleteVoiture$5(VoitureService.java:116)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.locme.voiture.VoitureService.deleteVoiture(VoitureService.java:116)
+	at com.locme.voiture.VoitureServiceTest.lambda$testDeleteVoitureUnauthorized$5(VoitureServiceTest.java:347)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+
+com.locme.voiture.VoitureServiceTest.testUpdateVoitureUnauthorized -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <com.locme.common.exceptions.BusinessException> but was: <com.locme.common.exceptions.ResourceNotFoundException>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.locme.voiture.VoitureServiceTest.testUpdateVoitureUnauthorized(VoitureServiceTest.java:296)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: com.locme.common.exceptions.ResourceNotFoundException: Société non trouvée
+	at com.locme.voiture.VoitureService.lambda$updateVoiture$3(VoitureService.java:89)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.locme.voiture.VoitureService.updateVoiture(VoitureService.java:89)
+	at com.locme.voiture.VoitureServiceTest.lambda$testUpdateVoitureUnauthorized$3(VoitureServiceTest.java:297)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+
+com.locme.voiture.VoitureServiceTest.testUpdateVoiture -- Time elapsed: 0.003 s <<< ERROR!
+com.locme.common.exceptions.ResourceNotFoundException: Société non trouvée
+	at com.locme.voiture.VoitureService.lambda$updateVoiture$3(VoitureService.java:89)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.locme.voiture.VoitureService.updateVoiture(VoitureService.java:89)
+	at com.locme.voiture.VoitureServiceTest.testUpdateVoiture(VoitureServiceTest.java:255)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

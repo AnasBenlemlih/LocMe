@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: com.locme.reservation.ReservationServiceTest
+-------------------------------------------------------------------------------
+Tests run: 16, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 0.086 s <<< FAILURE! -- in com.locme.reservation.ReservationServiceTest
+com.locme.reservation.ReservationServiceTest.testUpdateReservationStatus -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.locme.auth.User.getId()" because the return value of "com.locme.societe.Societe.getUser()" is null
+	at com.locme.reservation.ReservationService.updateReservationStatus(ReservationService.java:103)
+	at com.locme.reservation.ReservationServiceTest.testUpdateReservationStatus(ReservationServiceTest.java:303)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.locme.reservation.ReservationServiceTest.testUpdateReservationStatusUnauthorized -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <com.locme.common.exceptions.BusinessException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.locme.reservation.ReservationServiceTest.testUpdateReservationStatusUnauthorized(ReservationServiceTest.java:338)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: java.lang.NullPointerException: Cannot invoke "com.locme.auth.User.getId()" because the return value of "com.locme.societe.Societe.getUser()" is null
+	at com.locme.reservation.ReservationService.updateReservationStatus(ReservationService.java:103)
+	at com.locme.reservation.ReservationServiceTest.lambda$testUpdateReservationStatusUnauthorized$6(ReservationServiceTest.java:339)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+
