@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.locme.voiture.VoitureServiceTest
 -------------------------------------------------------------------------------
-Tests run: 15, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 0.126 s <<< FAILURE! -- in com.locme.voiture.VoitureServiceTest
-com.locme.voiture.VoitureServiceTest.testDeleteVoiture -- Time elapsed: 0.077 s <<< ERROR!
+Tests run: 15, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 0.180 s <<< FAILURE! -- in com.locme.voiture.VoitureServiceTest
+com.locme.voiture.VoitureServiceTest.testDeleteVoiture -- Time elapsed: 0.094 s <<< ERROR!
 com.locme.common.exceptions.ResourceNotFoundException: Société non trouvée
 	at com.locme.voiture.VoitureService.lambda$deleteVoiture$5(VoitureService.java:116)
 	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
@@ -30,7 +30,7 @@ Caused by: com.locme.common.exceptions.ResourceNotFoundException: Société non 
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
 	... 6 more
 
-com.locme.voiture.VoitureServiceTest.testUpdateVoitureUnauthorized -- Time elapsed: 0.003 s <<< FAILURE!
+com.locme.voiture.VoitureServiceTest.testUpdateVoitureUnauthorized -- Time elapsed: 0.006 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <com.locme.common.exceptions.BusinessException> but was: <com.locme.common.exceptions.ResourceNotFoundException>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
@@ -48,7 +48,7 @@ Caused by: com.locme.common.exceptions.ResourceNotFoundException: Société non 
 	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
 	... 6 more
 
-com.locme.voiture.VoitureServiceTest.testUpdateVoiture -- Time elapsed: 0.004 s <<< ERROR!
+com.locme.voiture.VoitureServiceTest.testUpdateVoiture -- Time elapsed: 0.003 s <<< ERROR!
 com.locme.common.exceptions.ResourceNotFoundException: Société non trouvée
 	at com.locme.voiture.VoitureService.lambda$updateVoiture$3(VoitureService.java:89)
 	at java.base/java.util.Optional.orElseThrow(Optional.java:403)

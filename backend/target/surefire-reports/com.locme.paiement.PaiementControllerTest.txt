@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.locme.paiement.PaiementControllerTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 0.573 s <<< FAILURE! -- in com.locme.paiement.PaiementControllerTest
-com.locme.paiement.PaiementControllerTest.testRefundPaymentNotFound -- Time elapsed: 0.014 s <<< FAILURE!
+Tests run: 11, Failures: 5, Errors: 0, Skipped: 0, Time elapsed: 0.803 s <<< FAILURE! -- in com.locme.paiement.PaiementControllerTest
+com.locme.paiement.PaiementControllerTest.testRefundPaymentNotFound -- Time elapsed: 0.015 s <<< FAILURE!
 java.lang.AssertionError: Status expected:<404> but was:<200>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
@@ -13,7 +13,7 @@ java.lang.AssertionError: Status expected:<404> but was:<200>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 
-com.locme.paiement.PaiementControllerTest.testCreatePaymentCheckoutReservationNotFound -- Time elapsed: 0.092 s <<< FAILURE!
+com.locme.paiement.PaiementControllerTest.testCreatePaymentCheckoutReservationNotFound -- Time elapsed: 0.126 s <<< FAILURE!
 java.lang.AssertionError: Status expected:<404> but was:<400>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
@@ -24,7 +24,7 @@ java.lang.AssertionError: Status expected:<404> but was:<400>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 
-com.locme.paiement.PaiementControllerTest.testRefundPaymentUnauthorized -- Time elapsed: 0.007 s <<< FAILURE!
+com.locme.paiement.PaiementControllerTest.testRefundPaymentUnauthorized -- Time elapsed: 0.026 s <<< FAILURE!
 java.lang.AssertionError: Status expected:<403> but was:<200>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
@@ -35,7 +35,7 @@ java.lang.AssertionError: Status expected:<403> but was:<200>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 
-com.locme.paiement.PaiementControllerTest.testRefundPayment -- Time elapsed: 0.008 s <<< FAILURE!
+com.locme.paiement.PaiementControllerTest.testRefundPayment -- Time elapsed: 0.023 s <<< FAILURE!
 java.lang.AssertionError: No value at JSON path "$.data.statut"
 	at org.springframework.test.util.JsonPathExpectationsHelper.evaluateJsonPath(JsonPathExpectationsHelper.java:351)
 	at org.springframework.test.util.JsonPathExpectationsHelper.assertValue(JsonPathExpectationsHelper.java:148)
@@ -47,7 +47,7 @@ java.lang.AssertionError: No value at JSON path "$.data.statut"
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
 Caused by: com.jayway.jsonpath.PathNotFoundException: Missing property in path $['data']
 
-com.locme.paiement.PaiementControllerTest.testCreatePaymentCheckoutUnauthorized -- Time elapsed: 0.006 s <<< FAILURE!
+com.locme.paiement.PaiementControllerTest.testCreatePaymentCheckoutUnauthorized -- Time elapsed: 0.009 s <<< FAILURE!
 java.lang.AssertionError: Status expected:<401> but was:<403>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:61)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:128)
